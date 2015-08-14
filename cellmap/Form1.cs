@@ -896,6 +896,8 @@
 
         private void backgroundWorker8_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            //GPSSPG: "9766,3682,22.7351,  113.802,  22.7322201319046,113.807093175813,广东省深圳市宝安区沙井街道新沙路38号,758,"
+            //CELLMAP:"9766,3682,22.606658,113.851435,22.6036773226,  113.856412185454,中国广东省深圳市宝安区恒南一路 邮政编码: 518126,758"
             string str = e.Result.ToString();
             if (str != "null") 
             {
@@ -1158,7 +1160,30 @@
             lac = this.textBox8.Text;
             cellid = this.textBox9.Text;
             string gsmCellInfoFromCellmapApi = CellmapManager.GetGsmCellInfoFromCellmapApi(lac, cellid);
+            //22.606658,113.851435,22.6036773226,113.856412185454,中国广东省深圳市宝安区恒南一路 邮政编码: 518126,758
             this.textBox3.Text = gsmCellInfoFromCellmapApi;
+
+            this.cellpoint = new PointLatLng(Convert.ToDouble("22.6036773226"), Convert.ToDouble("113.856412185454"));
+            if (CellmapManager.GetStringIni("1", "MarkerType") == "1")
+            {
+                this.currentMarker = new GMarkerGoogle(this.cellpoint, GMarkerGoogleType.green);
+            }
+            else
+            {
+                Font font = new Font("宋体", 13f, FontStyle.Bold);
+                Bitmap bitmap = CellmapManager.TextToBitmap(this.textBox8.Text + "-" + this.textBox9.Text, font, Rectangle.Empty, Color.Blue, Color.Red);
+                this.currentMarker = new GMarkerGoogle(this.cellpoint, bitmap);
+            }
+            GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal("1000")) / 2);
+            this.objects.Markers.Add(this.currentMarker);
+            string str7 = "CellMap" ;
+            this.currentMarker.ToolTipText = str7;
+            this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            this.currentMarker.ToolTip.Fill = new SolidBrush(Color.Red);
+            this.MainMap.Position = this.cellpoint;
+            this.polygons.Markers.Add(item);
+            this.polygonPoints.Add(this.cellpoint);
+
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -2139,8 +2164,8 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Panel1.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel1.Controls.Add(this.MainMap);
+            this.splitContainer1.Panel1.Controls.Add(this.webBrowser1);
             // 
             // splitContainer1.Panel2
             // 
@@ -2166,9 +2191,9 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(69, 25);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 1);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(166, 93);
+            this.webBrowser1.Size = new System.Drawing.Size(114, 66);
             this.webBrowser1.TabIndex = 17;
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.WebBrowser_NewWindow);
             // 

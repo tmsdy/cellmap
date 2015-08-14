@@ -100,5 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aspose.Cells.dll" />
+    <Content Include="readme.txt" />
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@
         public static string inifile = @"config\User.ini";
         private static double pi = 3.1415926535897931;
         public static string WebSite = "http://www.cellmap.cn/cellmapapi/";
+        public static string WebSite_MG = "http://open.u12580.com/api/v1/Cell?key=1&type=0&mcc=460&mnc=0&lac=";
 
         public static string addressResponseJson(string responseJson)
         {
@@ -407,22 +408,74 @@
 
         public static string GetGsmCellInfoCloud(string lac, string cellid)
         {
+            //先从文件读取
             string gsmCellInfoFromLocalFile = GetGsmCellInfoFromLocalFile(lac, cellid);
+            //string gsmCellInfoFromLocalFile = GpsspgApi.GetGsmCellInfo(lac, cellid);
             if (gsmCellInfoFromLocalFile == "null")
             {
+                //查询不到则调用CellmapApi查询
                 gsmCellInfoFromLocalFile = GetGsmCellInfoFromLbsbase(lac, cellid);
                 if (gsmCellInfoFromLocalFile == "null")
                 {
+                    //仍然查询不到则调用GpsspgApi查询
                     gsmCellInfoFromLocalFile = GpsspgApi.GetGsmCellInfo(lac, cellid);
                 }
                 if (gsmCellInfoFromLocalFile != "null")
                 {
+                    //查到了就写文件
                     write2file(GsmDataSourceFile, true, gsmCellInfoFromLocalFile);
                 }
             }
             return gsmCellInfoFromLocalFile;
         }
-
+        public static string GetGsmCellInfoFromMG(string lac, string cellid)
+        {
+            string str = "null";
+            HttpWebRequest request = null;
+            WebResponse response = null;
+            Stream responseStream = null;
+            StreamReader reader = null;
+            try
+            {
+                string requestUriString = WebSite_MG  + lac + "&cid=" + cellid;
+                GC.Collect();
+                request = (HttpWebRequest)WebRequest.Create(requestUriString);
+                request.Proxy = null;
+                request.KeepAlive = false;
+                request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1) Web-Sniffer/1.0.24";
+                request.Method = "GET";
+                response = request.GetResponse();
+                responseStream = response.GetResponseStream();
+                reader = new StreamReader(responseStream);
+                str = reader.ReadToEnd();
+                reader.Close();
+                response.Close();
+            }
+            catch (Exception)
+            {
+                str = "null";
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                if (responseStream != null)
+                {
+                    responseStream.Close();
+                }
+                if (response != null)
+                {
+                    response.Close();
+                }
+                if (request != null)
+                {
+                    request.Abort();
+                }
+            }
+            return str;
+        }
         public static string GetGsmCellInfoFromCellmapApi(string lac, string cellid)
         {
             string str = "null";
@@ -472,9 +525,12 @@
             return str;
         }
 
+        //从CellmapApi进行查询
         public static string GetGsmCellInfoFromLbsbase(string lac, string cellid)
         {
             string gsmCellInfoFromCellmapApi = GetGsmCellInfoFromCellmapApi(lac, cellid);
+            //gsmCellInfoFromCellmapApi += ",";
+            //gsmCellInfoFromCellmapApi += GetGsmCellInfoFromMG(lac, cellid);
             if (gsmCellInfoFromCellmapApi != "null")
             {
                 return (lac + "," + cellid + "," + gsmCellInfoFromCellmapApi);
@@ -498,7 +554,7 @@
                 return "null";
             }
         }
-
+        //从本地文件进行查询
         public static string GetGsmCellInfoFromLocalFile(string lac, string cell)
         {
             string str = "null";

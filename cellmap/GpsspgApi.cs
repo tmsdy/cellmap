@@ -39,6 +39,7 @@
                 string str4;
                 string str5;
                 string str6;
+                //先解析移动
                 JObject obj2 = JObject.Parse(GetGpsspgJson("00", lac, cell));
                 string str8 = obj2["status"].ToString();
                 if (str8.Substring(1, str8.Length - 2) == "200")
@@ -54,6 +55,7 @@
                     CellmapManager.InsertMysqlCellDate("0", lac, cell, str, str2, str3, str4, str5, str6);
                     return (lac + "," + cell + "," + str + "," + str2 + "," + str3 + "," + str4 + "," + str5 + "," + str6 + ",");
                 }
+                //再解析联通
                 obj2 = JObject.Parse(GetGpsspgJson("01", lac, cell));
                 str8 = obj2["status"].ToString();
                 if (str8.Substring(1, str8.Length - 2) == "200")
@@ -102,6 +104,7 @@
                 request.Headers["Accept-Language"] = "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3";
                 request.KeepAlive = true;
                 request.ServicePoint.Expect100Continue = false;
+                //Referer必须为http://www.gpsspg.com/bs.htm
                 request.Referer = reff;
                 response = (HttpWebResponse) request.GetResponse();
                 responseStream = response.GetResponseStream();
