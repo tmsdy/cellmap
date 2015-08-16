@@ -209,110 +209,150 @@
 
         private void InitializeComponent()
         {
-            this.menuStrip1 = new MenuStrip();
-            this.打开轨迹文件ToolStripMenuItem = new ToolStripMenuItem();
-            this.button2 = new Button();
-            this.groupBox3 = new GroupBox();
-            this.textBox3 = new TextBox();
-            this.groupBox2 = new GroupBox();
-            this.dataGridView1 = new DataGridView();
-            this.退出ToolStripMenuItem = new ToolStripMenuItem();
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.progressBar1 = new ProgressBar();
-            this.帮助ToolStripMenuItem = new ToolStripMenuItem();
-            this.checkBox1 = new CheckBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.打开轨迹文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((ISupportInitialize) this.dataGridView1).BeginInit();
-            base.SuspendLayout();
-            this.menuStrip1.BackColor = SystemColors.ActiveBorder;
-            this.menuStrip1.Items.AddRange(new ToolStripItem[] { this.打开轨迹文件ToolStripMenuItem, this.帮助ToolStripMenuItem, this.退出ToolStripMenuItem });
-            this.menuStrip1.Location = new Point(0, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.打开轨迹文件ToolStripMenuItem,
+            this.帮助ToolStripMenuItem,
+            this.退出ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new Size(0x1fc, 0x19);
+            this.menuStrip1.Size = new System.Drawing.Size(508, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 打开轨迹文件ToolStripMenuItem
+            // 
             this.打开轨迹文件ToolStripMenuItem.Name = "打开轨迹文件ToolStripMenuItem";
-            this.打开轨迹文件ToolStripMenuItem.Size = new Size(0x5c, 0x15);
+            this.打开轨迹文件ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
             this.打开轨迹文件ToolStripMenuItem.Text = "打开轨迹文件";
-            this.打开轨迹文件ToolStripMenuItem.Click += new EventHandler(this.打开轨迹文件ToolStripMenuItem_Click);
+            this.打开轨迹文件ToolStripMenuItem.Click += new System.EventHandler(this.打开轨迹文件ToolStripMenuItem_Click);
+            // 
+            // 帮助ToolStripMenuItem
+            // 
+            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.帮助ToolStripMenuItem.Text = "帮助";
+            this.帮助ToolStripMenuItem.Click += new System.EventHandler(this.帮助ToolStripMenuItem_Click);
+            // 
+            // 退出ToolStripMenuItem
+            // 
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
+            // button2
+            // 
             this.button2.Enabled = false;
-            this.button2.Location = new Point(0x21, 0x2d);
+            this.button2.Location = new System.Drawing.Point(33, 45);
             this.button2.Name = "button2";
-            this.button2.Size = new Size(0x58, 0x3d);
-            this.button2.TabIndex = 0x18;
+            this.button2.Size = new System.Drawing.Size(88, 61);
+            this.button2.TabIndex = 24;
             this.button2.Text = "显示轨迹";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // groupBox3
+            // 
             this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Location = new Point(0x21, 130);
+            this.groupBox3.Location = new System.Drawing.Point(33, 130);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new Size(430, 0x39);
-            this.groupBox3.TabIndex = 0x17;
+            this.groupBox3.Size = new System.Drawing.Size(430, 57);
+            this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询结果";
-            this.textBox3.Location = new Point(6, 20);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(6, 20);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new Size(0x199, 0x15);
+            this.textBox3.Size = new System.Drawing.Size(409, 21);
             this.textBox3.TabIndex = 13;
+            // 
+            // groupBox2
+            // 
             this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Location = new Point(0xa5, 0x2d);
+            this.groupBox2.Location = new System.Drawing.Point(165, 45);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new Size(0x12a, 0x3d);
-            this.groupBox2.TabIndex = 0x12;
+            this.groupBox2.Size = new System.Drawing.Size(298, 61);
+            this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "设置";
-            this.dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new Point(0x21, 0xde);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 0x17;
-            this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new Size(430, 0x15a);
-            this.dataGridView1.TabIndex = 0x10;
-            this.dataGridView1.CellClick += new DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CurrentCellChanged += new EventHandler(this.dataGridView1_CurrentCellChanged);
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new Size(0x2c, 0x15);
-            this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new EventHandler(this.退出ToolStripMenuItem_Click);
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            this.backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.progressBar1.Dock = DockStyle.Bottom;
-            this.progressBar1.Location = new Point(0, 0x250);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new Size(0x1fc, 0x17);
-            this.progressBar1.TabIndex = 0x19;
-            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new Size(0x2c, 0x15);
-            this.帮助ToolStripMenuItem.Text = "帮助";
-            this.帮助ToolStripMenuItem.Click += new EventHandler(this.帮助ToolStripMenuItem_Click);
+            // 
+            // checkBox1
+            // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = CheckState.Checked;
-            this.checkBox1.Location = new Point(0x2d, 0x17);
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(45, 23);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new Size(0x48, 0x10);
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "线路标注";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new EventHandler(this.checkBox1_CheckedChanged);
-            base.AutoScaleDimensions = new SizeF(6f, 12f);
-//            base.AutoScaleMode = AutoScaleMode.Font;
-            base.ClientSize = new Size(0x1fc, 0x267);
-            base.Controls.Add(this.progressBar1);
-            base.Controls.Add(this.button2);
-            base.Controls.Add(this.groupBox3);
-            base.Controls.Add(this.groupBox2);
-            base.Controls.Add(this.dataGridView1);
-            base.Controls.Add(this.menuStrip1);
-            base.Location = new Point(800, 50);
-            base.MainMenuStrip = this.menuStrip1;
-            base.Name = "Form5";
-            base.StartPosition = FormStartPosition.Manual;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(33, 222);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(430, 346);
+            this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar1.Location = new System.Drawing.Point(0, 592);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(508, 23);
+            this.progressBar1.TabIndex = 25;
+            // 
+            // Form5
+            // 
+            this.ClientSize = new System.Drawing.Size(508, 615);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.Location = new System.Drawing.Point(800, 50);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "Form5";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "批量查询轨迹回放";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -320,9 +360,10 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((ISupportInitialize) this.dataGridView1).EndInit();
-            base.ResumeLayout(false);
-            base.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         public static DataSet LoadDataFromExcel(string filePath)

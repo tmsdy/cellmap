@@ -156,77 +156,105 @@
 
         private void InitializeComponent()
         {
-            ComponentResourceManager manager = new ComponentResourceManager(typeof(Form2));
-            this.label1 = new Label();
-            this.label2 = new Label();
-            this.textBox1 = new TextBox();
-            this.textBox2 = new TextBox();
-            this.button1 = new Button();
-            this.checkBox1 = new CheckBox();
-            this.checkBox2 = new CheckBox();
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.pictureBox1 = new PictureBox();
-            this.groupBox1 = new GroupBox();
-            this.button2 = new Button();
-            this.label3 = new Label();
-            ((ISupportInitialize) this.pictureBox1).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            base.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
             this.label1.AutoSize = true;
-            this.label1.Location = new Point(0x5d, 0x25);
+            this.label1.Location = new System.Drawing.Point(93, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new Size(0x25, 15);
+            this.label1.Size = new System.Drawing.Size(37, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "账号";
+            // 
+            // label2
+            // 
             this.label2.AutoSize = true;
-            this.label2.Location = new Point(0x5d, 0x59);
+            this.label2.Location = new System.Drawing.Point(93, 89);
             this.label2.Name = "label2";
-            this.label2.Size = new Size(0x25, 15);
+            this.label2.Size = new System.Drawing.Size(37, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "密码";
-            this.textBox1.Location = new Point(0x99, 0x22);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(153, 34);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new Size(0x7a, 0x18);
+            this.textBox1.Size = new System.Drawing.Size(122, 24);
             this.textBox1.TabIndex = 2;
-            this.textBox2.Location = new Point(0x99, 0x56);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(153, 86);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new Size(0x7a, 0x18);
+            this.textBox2.Size = new System.Drawing.Size(122, 24);
             this.textBox2.TabIndex = 3;
             this.textBox2.UseSystemPasswordChar = true;
-            this.button1.Location = new Point(0x60, 0xc4);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(96, 196);
             this.button1.Name = "button1";
-            this.button1.Size = new Size(0x56, 0x17);
+            this.button1.Size = new System.Drawing.Size(86, 23);
             this.button1.TabIndex = 4;
             this.button1.Text = "登  陆";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // checkBox1
+            // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new Point(0x60, 0x91);
+            this.checkBox1.Location = new System.Drawing.Point(96, 145);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new Size(0x56, 0x13);
+            this.checkBox1.Size = new System.Drawing.Size(86, 19);
             this.checkBox1.TabIndex = 5;
             this.checkBox1.Text = "记住密码";
             this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new Point(0xd7, 0x91);
+            this.checkBox2.Location = new System.Drawing.Point(215, 145);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new Size(0x56, 0x13);
+            this.checkBox2.Size = new System.Drawing.Size(86, 19);
             this.checkBox2.TabIndex = 6;
             this.checkBox2.Text = "自动登陆";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new EventHandler(this.checkBox2_CheckedChanged);
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // backgroundWorker1
+            // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-//            this.pictureBox1.Image = Resources.waiting_pic;
-            this.pictureBox1.Location = new Point(0x4a, 300);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(74, 300);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new Size(0x29, 40);
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            this.pictureBox1.Size = new System.Drawing.Size(41, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
+            // 
+            // groupBox1
+            // 
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
@@ -235,41 +263,48 @@
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Font = new Font("宋体", 11f, FontStyle.Regular, GraphicsUnit.Point, 0x86);
-            this.groupBox1.Location = new Point(0x25, 0x21);
+            this.groupBox1.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(37, 33);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new Size(380, 250);
+            this.groupBox1.Size = new System.Drawing.Size(380, 250);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.button2.Location = new Point(0xd7, 0xc4);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(215, 196);
             this.button2.Name = "button2";
-            this.button2.Size = new Size(0x56, 0x17);
+            this.button2.Size = new System.Drawing.Size(86, 23);
             this.button2.TabIndex = 7;
             this.button2.Text = "取  消";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label3
+            // 
             this.label3.AutoSize = true;
-            this.label3.Location = new Point(0x8d, 0x148);
+            this.label3.Location = new System.Drawing.Point(141, 328);
             this.label3.Name = "label3";
-            this.label3.Size = new Size(0x29, 12);
+            this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 9;
             this.label3.Text = "label3";
             this.label3.Visible = false;
-            base.AutoScaleDimensions = new SizeF(6f, 12f);
-//            base.AutoScaleMode = AutoScaleMode.Font;
-            base.ClientSize = new Size(0x1dc, 0x177);
-            base.Controls.Add(this.label3);
-            base.Controls.Add(this.groupBox1);
-            base.Controls.Add(this.pictureBox1);
-//            base.Icon = (Icon) manager.GetObject("$this.Icon");
-            base.Name = "Form2";
-            base.StartPosition = FormStartPosition.CenterParent;
+            // 
+            // Form2
+            // 
+            this.ClientSize = new System.Drawing.Size(476, 375);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.pictureBox1);
+            this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "用户登陆";
-            ((ISupportInitialize) this.pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            base.ResumeLayout(false);
-            base.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         [DllImport("kernel32")]

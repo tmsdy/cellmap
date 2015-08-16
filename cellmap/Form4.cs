@@ -275,11 +275,11 @@
 
         private void InitializeComponent()
         {
-            this.dataGridView1 = new DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
-            this.statusStrip1 = new StatusStrip();
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.progressBar1 = new ProgressBar();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -296,50 +296,68 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new SaveFileDialog();
-            this.menuStrip1 = new MenuStrip();
-            this.打开文件ToolStripMenuItem = new ToolStripMenuItem();
-            this.开始批量查询ToolStripMenuItem = new ToolStripMenuItem();
-            this.浏览输出文件ToolStripMenuItem = new ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.打开文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.开始批量查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.浏览输出文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            ((ISupportInitialize) this.dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            base.SuspendLayout();
-            this.dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new Point(20, 0x10f);
+            this.SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(20, 271);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 0x17;
-            this.dataGridView1.Size = new Size(0x2d5, 0x11e);
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(725, 286);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellClick += new DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CurrentCellChanged += new EventHandler(this.dataGridView1_CurrentCellChanged);
-            this.button3.Location = new Point(0x291, 0x5c);
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(657, 92);
             this.button3.Name = "button3";
-            this.button3.Size = new Size(0x58, 0x17);
+            this.button3.Size = new System.Drawing.Size(88, 23);
             this.button3.TabIndex = 3;
             this.button3.Text = "选择输出文件";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Visible = false;
-            this.button3.Click += new EventHandler(this.button3_Click);
-            this.statusStrip1.Location = new Point(0, 0x25b);
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 603);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new Size(0x318, 0x16);
+            this.statusStrip1.Size = new System.Drawing.Size(792, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // backgroundWorker1
+            // 
             this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            this.backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.progressBar1.Location = new Point(0, 0x25b);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(0, 603);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new Size(0x31f, 0x17);
+            this.progressBar1.Size = new System.Drawing.Size(799, 23);
             this.progressBar1.TabIndex = 5;
+            // 
+            // groupBox1
+            // 
             this.groupBox1.Controls.Add(this.comboBox4);
             this.groupBox1.Controls.Add(this.comboBox3);
             this.groupBox1.Controls.Add(this.comboBox2);
@@ -348,162 +366,232 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new Point(20, 130);
+            this.groupBox1.Location = new System.Drawing.Point(20, 130);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new Size(0x1a8, 0x3d);
+            this.groupBox1.Size = new System.Drawing.Size(424, 61);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "字段定义";
-            this.comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new Point(0x16f, 0x1d);
+            this.comboBox4.Location = new System.Drawing.Point(367, 29);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new Size(0x2d, 20);
+            this.comboBox4.Size = new System.Drawing.Size(45, 20);
             this.comboBox4.TabIndex = 11;
-            this.comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new Point(260, 0x1d);
+            this.comboBox3.Location = new System.Drawing.Point(260, 29);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new Size(0x2d, 20);
+            this.comboBox3.Size = new System.Drawing.Size(45, 20);
             this.comboBox3.TabIndex = 10;
-            this.comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.DropDownWidth = 60;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new Point(0x90, 0x1d);
+            this.comboBox2.Location = new System.Drawing.Point(144, 29);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new Size(0x2d, 20);
+            this.comboBox2.Size = new System.Drawing.Size(45, 20);
             this.comboBox2.TabIndex = 9;
-            this.comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.DropDownWidth = 60;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new Point(0x2d, 0x1d);
+            this.comboBox1.Location = new System.Drawing.Point(45, 29);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new Size(0x2d, 20);
+            this.comboBox1.Size = new System.Drawing.Size(45, 20);
             this.comboBox1.TabIndex = 8;
+            // 
+            // label4
+            // 
             this.label4.AutoSize = true;
-            this.label4.Location = new Point(320, 0x21);
+            this.label4.Location = new System.Drawing.Point(320, 33);
             this.label4.Name = "label4";
-            this.label4.Size = new Size(0x29, 12);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 3;
             this.label4.Text = "注释二";
+            // 
+            // label3
+            // 
             this.label3.AutoSize = true;
-            this.label3.Location = new Point(0xd5, 0x20);
+            this.label3.Location = new System.Drawing.Point(213, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new Size(0x29, 12);
+            this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 2;
             this.label3.Text = "注释一";
+            // 
+            // label2
+            // 
             this.label2.AutoSize = true;
-            this.label2.Location = new Point(0x6d, 0x21);
+            this.label2.Location = new System.Drawing.Point(109, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new Size(0x17, 12);
+            this.label2.Size = new System.Drawing.Size(23, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "Lng";
+            // 
+            // label1
+            // 
             this.label1.AutoSize = true;
-            this.label1.Location = new Point(0x10, 0x21);
+            this.label1.Location = new System.Drawing.Point(16, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new Size(0x17, 12);
+            this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "Lat";
+            // 
+            // groupBox2
+            // 
             this.groupBox2.Controls.Add(this.comboBox6);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new Point(0x248, 130);
+            this.groupBox2.Location = new System.Drawing.Point(584, 130);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new Size(0xa1, 0x3d);
+            this.groupBox2.Size = new System.Drawing.Size(161, 61);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "设置";
-            this.comboBox6.DropDownStyle = ComboBoxStyle.DropDownList;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new Point(0x5d, 0x19);
+            this.comboBox6.Location = new System.Drawing.Point(93, 25);
             this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new Size(0x26, 20);
+            this.comboBox6.Size = new System.Drawing.Size(38, 20);
             this.comboBox6.TabIndex = 3;
+            // 
+            // label8
+            // 
             this.label8.AutoSize = true;
-            this.label8.Location = new Point(0x21, 0x20);
+            this.label8.Location = new System.Drawing.Point(33, 32);
             this.label8.Name = "label8";
-            this.label8.Size = new Size(0x35, 12);
+            this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 2;
             this.label8.Text = "标注线路";
+            // 
+            // label6
+            // 
             this.label6.AutoSize = true;
-            this.label6.Location = new Point(0x1a, 0x37);
+            this.label6.Location = new System.Drawing.Point(26, 55);
             this.label6.Name = "label6";
-            this.label6.Size = new Size(0x2f, 12);
+            this.label6.Size = new System.Drawing.Size(47, 12);
             this.label6.TabIndex = 8;
             this.label6.Text = "GPS文件";
-            this.textBox1.Location = new Point(0x55, 0x34);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(85, 52);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new Size(0x21e, 0x15);
+            this.textBox1.Size = new System.Drawing.Size(542, 21);
             this.textBox1.TabIndex = 9;
+            // 
+            // label7
+            // 
             this.label7.AutoSize = true;
-            this.label7.Location = new Point(0x1a, 0x5f);
+            this.label7.Location = new System.Drawing.Point(26, 95);
             this.label7.Name = "label7";
-            this.label7.Size = new Size(0x35, 12);
+            this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 10;
             this.label7.Text = "目标文件";
-            this.textBox2.Location = new Point(0x55, 0x5c);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(85, 92);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new Size(0x21e, 0x15);
+            this.textBox2.Size = new System.Drawing.Size(542, 21);
             this.textBox2.TabIndex = 11;
-            this.menuStrip1.BackColor = SystemColors.ActiveBorder;
-            this.menuStrip1.Items.AddRange(new ToolStripItem[] { this.打开文件ToolStripMenuItem, this.开始批量查询ToolStripMenuItem, this.浏览输出文件ToolStripMenuItem, this.退出ToolStripMenuItem });
-            this.menuStrip1.Location = new Point(0, 0);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.打开文件ToolStripMenuItem,
+            this.开始批量查询ToolStripMenuItem,
+            this.浏览输出文件ToolStripMenuItem,
+            this.退出ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new Size(0x318, 0x19);
+            this.menuStrip1.Size = new System.Drawing.Size(792, 25);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 打开文件ToolStripMenuItem
+            // 
             this.打开文件ToolStripMenuItem.Name = "打开文件ToolStripMenuItem";
-            this.打开文件ToolStripMenuItem.Size = new Size(0x44, 0x15);
+            this.打开文件ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.打开文件ToolStripMenuItem.Text = "打开文件";
-            this.打开文件ToolStripMenuItem.Click += new EventHandler(this.打开文件ToolStripMenuItem_Click);
+            this.打开文件ToolStripMenuItem.Click += new System.EventHandler(this.打开文件ToolStripMenuItem_Click);
+            // 
+            // 开始批量查询ToolStripMenuItem
+            // 
             this.开始批量查询ToolStripMenuItem.Name = "开始批量查询ToolStripMenuItem";
-            this.开始批量查询ToolStripMenuItem.Size = new Size(0x44, 0x15);
+            this.开始批量查询ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.开始批量查询ToolStripMenuItem.Text = "开始查询";
-            this.开始批量查询ToolStripMenuItem.Click += new EventHandler(this.开始批量查询ToolStripMenuItem_Click);
+            this.开始批量查询ToolStripMenuItem.Click += new System.EventHandler(this.开始批量查询ToolStripMenuItem_Click);
+            // 
+            // 浏览输出文件ToolStripMenuItem
+            // 
             this.浏览输出文件ToolStripMenuItem.Enabled = false;
             this.浏览输出文件ToolStripMenuItem.Name = "浏览输出文件ToolStripMenuItem";
-            this.浏览输出文件ToolStripMenuItem.Size = new Size(0x5c, 0x15);
+            this.浏览输出文件ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
             this.浏览输出文件ToolStripMenuItem.Text = "浏览输出文件";
-            this.浏览输出文件ToolStripMenuItem.Click += new EventHandler(this.浏览输出文件ToolStripMenuItem_Click);
+            this.浏览输出文件ToolStripMenuItem.Click += new System.EventHandler(this.浏览输出文件ToolStripMenuItem_Click);
+            // 
+            // 退出ToolStripMenuItem
+            // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new Size(0x2c, 0x15);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new EventHandler(this.退出ToolStripMenuItem_Click);
-            this.textBox3.Location = new Point(6, 20);
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(6, 20);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new Size(0x2cf, 0x15);
+            this.textBox3.Size = new System.Drawing.Size(719, 21);
             this.textBox3.TabIndex = 13;
+            // 
+            // groupBox3
+            // 
             this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Location = new Point(20, 0xc5);
+            this.groupBox3.Location = new System.Drawing.Point(20, 197);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new Size(0x2d5, 0x39);
+            this.groupBox3.Size = new System.Drawing.Size(725, 57);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询结果";
-            base.AutoScaleDimensions = new SizeF(6f, 12f);
-//            base.AutoScaleMode = AutoScaleMode.Font;
-            base.ClientSize = new Size(0x318, 0x271);
-            base.Controls.Add(this.groupBox3);
-            base.Controls.Add(this.textBox2);
-            base.Controls.Add(this.label7);
-            base.Controls.Add(this.textBox1);
-            base.Controls.Add(this.label6);
-            base.Controls.Add(this.groupBox2);
-            base.Controls.Add(this.groupBox1);
-            base.Controls.Add(this.progressBar1);
-            base.Controls.Add(this.statusStrip1);
-            base.Controls.Add(this.menuStrip1);
-            base.Controls.Add(this.button3);
-            base.Controls.Add(this.dataGridView1);
-//            base.FormBorderStyle = FormBorderStyle.FixedSingle;
-            base.MainMenuStrip = this.menuStrip1;
-            base.MaximizeBox = false;
-            base.MinimizeBox = false;
-            base.Name = "Form4";
+            // 
+            // Form4
+            // 
+            this.ClientSize = new System.Drawing.Size(792, 625);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.dataGridView1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "Form4";
             this.Text = "GPS 批量查询";
-            base.Load += new EventHandler(this.Form4_Load);
-            ((ISupportInitialize) this.dataGridView1).EndInit();
+            this.Load += new System.EventHandler(this.Form4_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -512,8 +600,9 @@
             this.menuStrip1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            base.ResumeLayout(false);
-            base.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         public static DataSet LoadDataFromExcel(string filePath)

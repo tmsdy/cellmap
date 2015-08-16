@@ -1066,6 +1066,21 @@
             this.textBox3.Text = "基站查询中，请稍后......";
             this.backgroundWorker8.RunWorkerAsync();
             this.button2.Enabled = false;
+
+            //添加其它几个接口的查询
+            string lac = "";
+            string cellid = "";
+            if (this.radioButton1.Checked)
+            {
+                lac = this.textBox8.Text;
+                cellid = this.textBox9.Text;
+            }
+            if (this.radioButton2.Checked)
+            {
+                lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
+                cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
+            }
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1174,12 +1189,14 @@
                 Bitmap bitmap = CellmapManager.TextToBitmap(this.textBox8.Text + "-" + this.textBox9.Text, font, Rectangle.Empty, Color.Blue, Color.Red);
                 this.currentMarker = new GMarkerGoogle(this.cellpoint, bitmap);
             }
+            //item为一个圆圈，用来表示基站范围
             GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal("1000")) / 2);
             this.objects.Markers.Add(this.currentMarker);
             string str7 = "CellMap" ;
             this.currentMarker.ToolTipText = str7;
             this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
             this.currentMarker.ToolTip.Fill = new SolidBrush(Color.Red);
+            //设置地图中心为cellpoint
             this.MainMap.Position = this.cellpoint;
             this.polygons.Markers.Add(item);
             this.polygonPoints.Add(this.cellpoint);
@@ -1396,8 +1413,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
@@ -2089,7 +2106,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(100, 21);
             this.textBox9.TabIndex = 27;
-            this.textBox9.Text = "3682";
+            this.textBox9.Text = "4713";
             this.textBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox9_KeyPress);
             // 
             // textBox8
@@ -2098,7 +2115,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(100, 21);
             this.textBox8.TabIndex = 26;
-            this.textBox8.Text = "9766";
+            this.textBox8.Text = "9346";
             this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
             // 
             // radioButton2
@@ -2189,14 +2206,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(0, 1);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(114, 66);
-            this.webBrowser1.TabIndex = 17;
-            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.WebBrowser_NewWindow);
-            // 
             // MainMap
             // 
             this.MainMap.Bearing = 0F;
@@ -2221,6 +2230,14 @@
             this.MainMap.Size = new System.Drawing.Size(629, 674);
             this.MainMap.TabIndex = 3;
             this.MainMap.Zoom = 0D;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(0, 1);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(114, 66);
+            this.webBrowser1.TabIndex = 17;
+            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.WebBrowser_NewWindow);
             // 
             // backgroundWorker4
             // 
