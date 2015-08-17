@@ -150,6 +150,8 @@
         private ToolStripMenuItem 显示移动基站ToolStripMenuItem;
         private ToolStripMenuItem 修改密码ToolStripMenuItem;
         private ToolStripMenuItem 用户登陆ToolStripMenuItem;
+        private TextBox textBox5;
+        private Label label2;
         private ToolStripMenuItem 账号查询ToolStripMenuItem;
 
         public Form1()
@@ -1301,6 +1303,30 @@
 
         private void button6_Click_1(object sender, EventArgs e)
         {
+            string sLacCell = textBox5.Text;
+            long lLac = 0;
+            long lCell = 0;
+            //string sLachex = string.Empty;
+            //string sCellhex = string.Empty;
+            sLacCell = sLacCell.Trim();
+            if ((sLacCell.Length != 8))
+            {
+                textBox3.Text = ("请输入正确的LBS信息\n");
+                return;
+            }
+            else if (sLacCell.Length == 8)
+            {
+                //sLachex = sLacCell.Substring(0, 4);
+                //sCellhex = sLacCell.Substring(4, 4);
+                lLac = Convert.ToInt64(sLacCell.Substring(0, 4), 16);
+                lCell = Convert.ToInt64(sLacCell.Substring(4, 4), 16);
+
+                textBox8.Text = lLac.ToString();
+                textBox9.Text = lCell.ToString();
+            }
+            button2_Click_1(  sender,   e);
+
+            /*
             string lac = "";
             string cellid = "";
             lac = this.textBox8.Text;
@@ -1331,6 +1357,7 @@
             this.MainMap.Position = this.cellpoint;
             this.polygons.Markers.Add(item);
             this.polygonPoints.Add(this.cellpoint);
+             */
 
         }
 
@@ -1557,6 +1584,8 @@
             this.backgroundWorker12 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker13 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker14 = new System.ComponentModel.BackgroundWorker();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -1906,6 +1935,8 @@
             // 
             // splitContainer4.Panel2
             // 
+            this.splitContainer4.Panel2.Controls.Add(this.label2);
+            this.splitContainer4.Panel2.Controls.Add(this.textBox5);
             this.splitContainer4.Panel2.Controls.Add(this.button6);
             this.splitContainer4.Panel2.Controls.Add(this.groupBox5);
             this.splitContainer4.Panel2.Controls.Add(this.groupBox2);
@@ -1928,11 +1959,11 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(249, 12);
+            this.button6.Location = new System.Drawing.Point(217, 6);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.Size = new System.Drawing.Size(62, 23);
             this.button6.TabIndex = 30;
-            this.button6.Text = "test";
+            this.button6.Text = "查询";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
@@ -2438,6 +2469,23 @@
             this.backgroundWorker14.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker14_ProgressChanged);
             this.backgroundWorker14.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker14_RunWorkerCompleted);
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(94, 7);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(109, 21);
+            this.textBox5.TabIndex = 30;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(11, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "麦谷基站报文";
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(975, 703);
@@ -2452,6 +2500,7 @@
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);
+            this.splitContainer4.Panel2.PerformLayout();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
