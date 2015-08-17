@@ -1959,7 +1959,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(217, 6);
+            this.button6.Location = new System.Drawing.Point(217, 14);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(62, 23);
             this.button6.TabIndex = 30;
@@ -2228,7 +2228,7 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(16, 32);
+            this.groupBox1.Location = new System.Drawing.Point(16, 46);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(273, 122);
             this.groupBox1.TabIndex = 22;
@@ -2471,7 +2471,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(94, 7);
+            this.textBox5.Location = new System.Drawing.Point(94, 15);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(109, 21);
             this.textBox5.TabIndex = 30;
@@ -2480,7 +2480,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(11, 11);
+            this.label2.Location = new System.Drawing.Point(11, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 30;
