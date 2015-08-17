@@ -155,6 +155,7 @@
         public Form1()
         {
             this.InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             ServicePointManager.DefaultConnectionLimit = 200;
             base.IsMdiContainer = true;
             base.Show();
@@ -1061,13 +1062,12 @@
         }
 
 
-
-          delegate LBS2GPS.CellServiceEntity httpget_lbsMGCaller(string lac, string cellid);//定义个代理
-
           void PointOnTheMap(LBS2GPS.CellServiceEntity result)
         {
+            if (Convert.ToDouble(result.QQlat) == 0.00)
+                return;
 
-            this.cellpoint = new PointLatLng(Convert.ToDouble(result.lat), Convert.ToDouble(result.lng));
+            this.cellpoint = new PointLatLng(Convert.ToDouble(result.QQlat), Convert.ToDouble(result.QQlng));
             //if (CellmapManager.GetStringIni("1", "MarkerType") != "1")
             //{
                 this.currentMarker = new GMarkerGoogle(this.cellpoint, GMarkerGoogleType.green);
@@ -1084,52 +1084,132 @@
             this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
             this.currentMarker.ToolTip.Fill = new SolidBrush(Color.Red);
             //设置地图中心为cellpoint
+           
             this.MainMap.Position = this.cellpoint;
             //item为一个圆圈，用来表示基站范围
-            if (0 != result.distance )
-            {
-                GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal(result.distance)) / 2);
-                this.polygons.Markers.Add(item);
-            }
+            //if (0 != result.distance )
+            //{
+            //    GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal(result.distance)) / 2);
+            //    this.polygons.Markers.Add(item);
+            //}
             
             this.polygonPoints.Add(this.cellpoint);
 
         }
-
-          void PringResult(LBS2GPS.CellServiceEntity result)
+          private delegate void SetTextHandler(string text);
+          private void SetText(string text)
           {
-              //string sResult = result.whichApi + "\n" + "" 
+
+              if (textBox3.InvokeRequired == true)
+              {
+                  SetTextHandler set = new SetTextHandler(SetText);//委托的方法参数应和SetText一致
+                  textBox3.Invoke(set, new object[] { text }); //此方法第二参数用于传入方法,代替形参text
+              }
+              else
+              {
+                  textBox3.Text += text; 
+              }
+          }
+          void PringResult( LBS2GPS.CellServiceEntity result)
+          {
+              string sResult = result.whichApi + "\r\n" + result.lat.ToString() + "," + result.lng.ToString() + "\r\n";
+              SetText(sResult); 
  
           }
 
+
+          delegate LBS2GPS.CellServiceEntity httpget_lbsMGCaller(string lac, string cellid);//定义个代理
+
+          delegate LBS2GPS.CellServiceEntity httpget_lbsCellIdCaller(string lac, string cellid);//定义个代理
+
+          delegate LBS2GPS.CellServiceEntity httpget_lbsCellMapCaller(string lac, string cellid);//定义个代理
+
+          delegate LBS2GPS.CellServiceEntity httpget_lbsMapbarCaller(string lac, string cellid);//定义个代理
+
+
+          private void queryall()
+          {
+              //添加其它几个接口的查询
+              string lac = "";
+              string cellid = "";
+              if (this.radioButton1.Checked)
+              {
+                  lac = this.textBox8.Text;
+                  cellid = this.textBox9.Text;
+              }
+              if (this.radioButton2.Checked)
+              {
+                  lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
+                  cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
+              }
+              textBox3.Text = ("********************" + lac  + "," + cellid+ "********************\r\n");
+              /********************************Mapbar查询**************************************/
+              httpget_lbsMapbarCaller MapbarCaller = new httpget_lbsMapbarCaller(LBS2GPS.httpget_lbsMapbar);
+              IAsyncResult resultMapbar = MapbarCaller.BeginInvoke(lac, cellid, null, null);
+              LBS2GPS.CellServiceEntity sResultMapbar = MapbarCaller.EndInvoke(resultMapbar);//用于接收返回值 
+
+
+              if (sResultMapbar != null)
+              {
+                  //textBox3.Text = string.Empty;
+                  PringResult(sResultMapbar);
+                  PointOnTheMap(sResultMapbar);
+              }
+
+
+              /********************************MG查询**************************************/
+              httpget_lbsMGCaller MapgooCaller = new httpget_lbsMGCaller(LBS2GPS.httpget_lbsMG);
+
+              IAsyncResult resultMG = MapgooCaller.BeginInvoke(lac, cellid, null, null);
+              LBS2GPS.CellServiceEntity sResultMg = MapgooCaller.EndInvoke(resultMG);//用于接收返回值 
+
+
+              if (sResultMg != null)
+              {
+                  PringResult(sResultMg);
+                  PointOnTheMap(sResultMg);
+              }
+
+              /********************************CellMap查询**************************************/
+              httpget_lbsCellMapCaller CellMapCaller = new httpget_lbsCellMapCaller(LBS2GPS.httpget_lbsCellMap);
+              IAsyncResult resultCellMap = CellMapCaller.BeginInvoke(lac, cellid, null, null);
+              LBS2GPS.CellServiceEntity sResultCellMap = CellMapCaller.EndInvoke(resultCellMap);//用于接收返回值 
+
+
+              if (sResultCellMap != null)
+              {
+                  PringResult(sResultCellMap);
+                  PointOnTheMap(sResultCellMap);
+              }
+
+              /********************************CellID查询**************************************/
+              httpget_lbsCellIdCaller CellIdCaller = new httpget_lbsCellIdCaller(LBS2GPS.httpget_lbsCellId);
+              IAsyncResult resultCellId = CellIdCaller.BeginInvoke(lac, cellid, null, null);
+              LBS2GPS.CellServiceEntity sResultCellId = CellIdCaller.EndInvoke(resultCellId);//用于接收返回值 
+
+
+              if (sResultCellId != null)
+              {
+                  PringResult(sResultCellId);
+                  PointOnTheMap(sResultCellId);
+              }
+          
+          }
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.textBox3.BringToFront();
             this.MainMap.BringToFront();
             this.textBox3.Text = "基站查询中，请稍后......";
-            this.backgroundWorker8.RunWorkerAsync();
+            //屏蔽掉原来的cellmap方法
+            //this.backgroundWorker8.RunWorkerAsync();
             this.button2.Enabled = false;
 
-            //添加其它几个接口的查询
-            string lac = "";
-            string cellid = "";
-            if (this.radioButton1.Checked)
-            {
-                lac = this.textBox8.Text;
-                cellid = this.textBox9.Text;
-            }
-            if (this.radioButton2.Checked)
-            {
-                lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
-                cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
-            }
-            httpget_lbsMGCaller mc = new httpget_lbsMGCaller(LBS2GPS.httpget_lbsMG);
+            //this.textBox3.Text = string.Empty;
 
-            IAsyncResult result = mc.BeginInvoke(lac, cellid, null,null);
-            LBS2GPS.CellServiceEntity sResultMg = mc.EndInvoke(result);//用于接收返回值 
-            PringResult(sResultMg);
-            PointOnTheMap(sResultMg); 
+            System.Threading.Thread thread = new Thread(new ThreadStart(queryall));
+            thread.Start();
 
+            this.button2.Enabled = true;
  
 
         }
@@ -1527,21 +1607,21 @@
             // 用户登陆ToolStripMenuItem
             // 
             this.用户登陆ToolStripMenuItem.Name = "用户登陆ToolStripMenuItem";
-            this.用户登陆ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.用户登陆ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.用户登陆ToolStripMenuItem.Text = "用户登陆";
             this.用户登陆ToolStripMenuItem.Click += new System.EventHandler(this.用户登陆ToolStripMenuItem_Click);
             // 
             // 修改密码ToolStripMenuItem
             // 
             this.修改密码ToolStripMenuItem.Name = "修改密码ToolStripMenuItem";
-            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改密码ToolStripMenuItem.Text = "密码修改";
             this.修改密码ToolStripMenuItem.Click += new System.EventHandler(this.修改密码ToolStripMenuItem_Click);
             // 
             // 账号查询ToolStripMenuItem
             // 
             this.账号查询ToolStripMenuItem.Name = "账号查询ToolStripMenuItem";
-            this.账号查询ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.账号查询ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.账号查询ToolStripMenuItem.Text = "账号查询";
             this.账号查询ToolStripMenuItem.Click += new System.EventHandler(this.账号查询ToolStripMenuItem_Click);
             // 
@@ -1848,7 +1928,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(193, 12);
+            this.button6.Location = new System.Drawing.Point(249, 12);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 30;

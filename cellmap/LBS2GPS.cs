@@ -26,7 +26,7 @@ namespace cellmap
             public int mcc { get; set; }
             public int mnc { get; set; }
 
-            public string whichApi { get; set; }
+            public   string whichApi { get; set; }
         }
 
         public class Coords
@@ -118,7 +118,7 @@ namespace cellmap
         {
             string sRequestUrl = "http://open.u12580.com/api/v1/Cell?mcc=0460&mnc=0&key=1&type=0&lac=" + sLac + "&cid=" + sCellId;
             CellServiceEntity entity = new CellServiceEntity();
-            entity.whichApi = "MapGoo";
+            
             HttpWebRequest httpRequest = (HttpWebRequest)WebRequest.Create(sRequestUrl);
             httpRequest.Timeout = 10000;
             httpRequest.Method = "GET";
@@ -143,6 +143,7 @@ namespace cellmap
 
 
                 SetText("MG接口：" + entity.lat + "," + entity.lng + "\n");
+                entity.whichApi = "MapGoo";
                 return entity;
             }
 
@@ -171,6 +172,7 @@ namespace cellmap
                     coords.result.QQlng = strArray[0];
                     entity = coords.result;
                     SetText("MG接口联通：" + entity.lat + "," + entity.lng + "\n");
+                    entity.whichApi = "MapGoo";
                     return entity;
                     
                      
@@ -185,7 +187,7 @@ namespace cellmap
 
 
         }
-        public static void httpget_lbsCellId(string sLac, string sCellId)
+        public static CellServiceEntity httpget_lbsCellId(string sLac, string sCellId)
         {
             //http://www.cellid.cn/cidInfo.php?hex=false&lac=34860&cell_id=62041
             string sRequestUrl = "http://www.cellid.cn/cidInfo.php?hex=false&lac=" + sLac + "&cell_id=" + sCellId;
@@ -226,11 +228,13 @@ namespace cellmap
 
 
                     SetText("CellId接口：" + entity.lat + "," + entity.lng + "\n");
-
+                    entity.whichApi = "CellId";
+                    return entity;
                     //textBox7.Text = entity.lat + "," + entity.lng;
                 }
                 else
                 {
+                    return null;
                 //    textBox7.Text = "查询失败";
                 }
             }
@@ -238,6 +242,7 @@ namespace cellmap
             {
                 SetText("CellId接口：" + er.ToString() + "\n");
                 //textBox7.Text = "查询失败";
+                return null;
             }
 
         }
@@ -249,7 +254,7 @@ namespace cellmap
         //CellMap接口：23.0356072931741,113.342499106817,23.033004,113.347942,广东省广州市番禺区ym03,2000 
 
 
-        public static void httpget_lbsCellMap(string sLac, string sCellId)
+        public static CellServiceEntity httpget_lbsCellMap(string sLac, string sCellId)
         {
             //http://www.cellmap.cn/cellmapapi/cellmap_gsm2gps_api.aspx?lac=9723&cell=3871
 
@@ -279,21 +284,23 @@ namespace cellmap
                 entity.QQlat = result.Split(new char[] { ',' })[2];
                 entity.QQlng = result.Split(new char[] { ',' })[3];
                 entity.address = result.Split(new char[] { ',' })[4];
-                entity.distance = Convert.ToInt32(result.Split(new char[] { ',' })[5]);
+                entity.distance = Convert.ToInt32(Convert.ToDouble( result.Split(new char[] { ',' })[5]));
 
                 SetText("CellMap接口：" + entity.lat + "," + entity.lng + "\n");
-
+                entity.whichApi = "CellMap";
+                return entity;
                 //textBox8.Text = entity.lat + "," + entity.lng;
             }
             else
             {
                 //textBox8.Text = "查询失败";
+                return null;
             }
 
         }
 
 
-        public static void httpget_lbsMapbar(string sLac, string sCellId)
+        public static CellServiceEntity httpget_lbsMapbar(string sLac, string sCellId)
         {
             //[{"mcc":460,"mnc":0,"lac":32971,"cid":25632,"dbm":-66}]
             //http://app.qinmi.co/openapi/v1/Cell
@@ -337,11 +344,14 @@ namespace cellmap
                 SetText("Mapbar接口：" + entity.lat + "," + entity.lng + "\n");
                 string url = string.Format(" http://maps.gpspax.com/showMap.aspx?zoom=16&n={0},{1}", new object[] { entity.lat, entity.lng });
                 //webBrowser1.Navigate(url);
+                entity.whichApi = "Mapbar";
+                return entity;
 
             }
             else
             {
                 //textBox9.Text = "查询失败";
+                return null;
             }
 
         }
