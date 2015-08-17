@@ -4,12 +4,12 @@ using System.Text;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
-using Utilities.Lib;
+//using Utilities.Lib;
 namespace cellmap
 {
     class LBS2GPS
     {
-        public class CellServiceEntity
+        public  class CellServiceEntity
         {
             // Methods
             //   public void  CellServiceEntity();
@@ -25,6 +25,8 @@ namespace cellmap
             public string QQlng { get; set; }
             public int mcc { get; set; }
             public int mnc { get; set; }
+
+            public string whichApi { get; set; }
         }
 
         public class Coords
@@ -58,12 +60,12 @@ namespace cellmap
 
 
 
-        public string sQQkey = "D5CBZ-42MRW-GKERA-RZI4B-VX2W2-3DBOE";
+        public static string sQQkey = "D5CBZ-42MRW-GKERA-RZI4B-VX2W2-3DBOE";
         private delegate void SetTextHandler(string text);
 
         private delegate void SetURLHandler(string url);
 
-        private void SetText(string text)
+        public static void SetText(string text)
         {
             
             
@@ -80,10 +82,10 @@ namespace cellmap
 
 
 
-        public string[] GetQQCoordEx(string lng, string lat, int from)
+        public static string[] GetQQCoordEx(string lng, string lat, int from)
         {
 
-            string requestUriString = string.Format("http://apis.map.qq.com/ws/coord/v1/translate?locations={1},{0}&type={2}&key={3}", new object[] { lng, lat, from, this.sQQkey });
+            string requestUriString = string.Format("http://apis.map.qq.com/ws/coord/v1/translate?locations={1},{0}&type={2}&key={3}", new object[] { lng, lat, from,LBS2GPS.sQQkey });
             string[] strArray = new string[2];
             try
             {
@@ -112,10 +114,11 @@ namespace cellmap
         }
 
 
-        private void httpget_lbsMG(string  sLac,string sCellId)
+        public static CellServiceEntity httpget_lbsMG(string sLac, string sCellId)
         {
             string sRequestUrl = "http://open.u12580.com/api/v1/Cell?mcc=0460&mnc=0&key=1&type=0&lac=" + sLac + "&cid=" + sCellId;
-
+            CellServiceEntity entity = new CellServiceEntity();
+            entity.whichApi = "MapGoo";
             HttpWebRequest httpRequest = (HttpWebRequest)WebRequest.Create(sRequestUrl);
             httpRequest.Timeout = 10000;
             httpRequest.Method = "GET";
@@ -131,7 +134,7 @@ namespace cellmap
             if (coords.error == 0)
             {
                 //转换格式
-                CellServiceEntity entity = new CellServiceEntity();
+                  //entity = new CellServiceEntity();
 
                 string[] strArray = GetQQCoordEx(coords.result.lng, coords.result.lat, 1);
                 coords.result.QQlat = strArray[1];
@@ -140,10 +143,7 @@ namespace cellmap
 
 
                 SetText("MG接口：" + entity.lat + "," + entity.lng + "\n");
-                 
-
-                //string url = string.Format("http://apis.map.qq.com/ws/staticmap/v2/?center={0},{1}&zoom=15&size=400*300&maptype=roadmap&markers=label:{3}|{0},{1}&key={2}", new object[] { entity.lat, entity.lng, this.sQQkey,'0' });
-
+                return entity;
             }
 
             else
@@ -164,26 +164,28 @@ namespace cellmap
                 if (coords.error == 0)
                 {
                     //转换格式
-                    CellServiceEntity entity = new CellServiceEntity();
+                      //entity = new CellServiceEntity();
 
                     string[] strArray = GetQQCoordEx(coords.result.lng, coords.result.lat, 1);
                     coords.result.QQlat = strArray[1];
                     coords.result.QQlng = strArray[0];
                     entity = coords.result;
-
-
                     SetText("MG接口联通：" + entity.lat + "," + entity.lng + "\n");
+                    return entity;
+                    
                      
                 }
                 else
                 {
                     //textBox6.Text = "查询失败";
+                    return null;
                 }
             }
+        
 
 
         }
-        private void httpget_lbsCellId(string sLac, string sCellId)
+        public static void httpget_lbsCellId(string sLac, string sCellId)
         {
             //http://www.cellid.cn/cidInfo.php?hex=false&lac=34860&cell_id=62041
             string sRequestUrl = "http://www.cellid.cn/cidInfo.php?hex=false&lac=" + sLac + "&cell_id=" + sCellId;
@@ -216,9 +218,10 @@ namespace cellmap
 
                     entity.QQlng = result.Split(new char[] { ',' })[1];
                     string[] strArray = GetQQCoordEx(entity.QQlng, entity.QQlat, 1);
-
-                    entity.lng = ((Checkout.GetDouble(entity.QQlng)) * 2.0 - (Checkout.GetDouble(strArray[0]))).ToString();
-                    entity.lat = ((Checkout.GetDouble(entity.QQlat)) * 2.0 - (Checkout.GetDouble(strArray[1]))).ToString();
+                    //Convert.ToDouble
+                    //double.Parse
+                    entity.lng = ((Convert.ToDouble(entity.QQlng)) * 2.0 - (Convert.ToDouble(strArray[0]))).ToString();
+                    entity.lat = ((Convert.ToDouble(entity.QQlat)) * 2.0 - (Convert.ToDouble(strArray[1]))).ToString();
                     entity.address = result.Split(new char[] { '>' })[1];
 
 
@@ -246,7 +249,7 @@ namespace cellmap
         //CellMap接口：23.0356072931741,113.342499106817,23.033004,113.347942,广东省广州市番禺区ym03,2000 
 
 
-        private void httpget_lbsCellMap(string sLac, string sCellId)
+        public static void httpget_lbsCellMap(string sLac, string sCellId)
         {
             //http://www.cellmap.cn/cellmapapi/cellmap_gsm2gps_api.aspx?lac=9723&cell=3871
 
@@ -290,7 +293,7 @@ namespace cellmap
         }
 
 
-        private void httpget_lbsMapbar(string sLac, string sCellId)
+        public static void httpget_lbsMapbar(string sLac, string sCellId)
         {
             //[{"mcc":460,"mnc":0,"lac":32971,"cid":25632,"dbm":-66}]
             //http://app.qinmi.co/openapi/v1/Cell

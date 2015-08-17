@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -40,9 +42,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cellmap\Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cellmap\Form4.resx">
-      <DependentUpon>Form4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="cellmap\Form5.resx">
       <DependentUpon>Form5.cs</DependentUpon>
@@ -104,9 +103,6 @@
     <Compile Include="cellmap\Program.cs" />
     <EmbeddedResource Include="cellmap.Properties.Resources.resources" />
     <Reference Include="System.XML" />
-    <Reference Include="Utilities.Lib">
-      <HintPath>C:\Users\daoyuan\Desktop\openapi\bin\Utilities.Lib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Fakes Include="Fakes\Aspose.Cells.fakes" />

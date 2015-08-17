@@ -17,6 +17,8 @@
     using System.Net;
     using System.Text;
     using System.Windows.Forms;
+    using System.Threading;
+ 
 
     public class Form1 : Form
     {
@@ -120,7 +122,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         public GMapOverlay top;
         private ToolStripMenuItem TrackToolStripMenuItem;
-        private string version = "6.2.8.2.9.2";
+        private string version = "1.0.0";
         public WebBrowser webBrowser1;
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 打开10进制文件ToolStripMenuItem;
@@ -137,7 +139,6 @@
         private ToolStripMenuItem 删除标记ToolStripMenuItem;
         private ToolStripMenuItem 删除所有标记ToolStripMenuItem;
         private ToolStripMenuItem 设置ToolStripMenuItem;
-        private ToolStripMenuItem 使用帮助ToolStripMenuItem;
         private ToolStripMenuItem 图标样式ToolStripMenuItem;
         private ToolStripMenuItem 图形ToolStripMenuItem;
         private ToolStripMenuItem 卫星地图ToolStripMenuItem;
@@ -157,7 +158,7 @@
             ServicePointManager.DefaultConnectionLimit = 200;
             base.IsMdiContainer = true;
             base.Show();
-            this.Text = "Cellmap V" + this.version;
+            this.Text = "基站查询工具 V" + this.version;
             this.init();
             if (CellmapManager.GetStringIni("1", "MarkerType") == "2")
             {
@@ -176,19 +177,19 @@
 
         private void aaaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.loginstatus == "true")
-            {
+            //if (this.loginstatus == "true")
+            //{
                 this.textBox3.BringToFront();
                 this.MainMap.BringToFront();
                 this.f3 = new Form3(this);
                 this.f3.Owner = this;
                 this.f3.Show();
                 this.f3.BringToFront();
-            }
-            else
-            {
-                MessageBox.Show("请登录后继续使用！", "提示");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("请登录后继续使用！", "提示");
+            //}
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -1059,6 +1060,48 @@
             this.backgroundWorker10.RunWorkerAsync();
         }
 
+
+
+          delegate LBS2GPS.CellServiceEntity httpget_lbsMGCaller(string lac, string cellid);//定义个代理
+
+          void PointOnTheMap(LBS2GPS.CellServiceEntity result)
+        {
+
+            this.cellpoint = new PointLatLng(Convert.ToDouble(result.lat), Convert.ToDouble(result.lng));
+            //if (CellmapManager.GetStringIni("1", "MarkerType") != "1")
+            //{
+                this.currentMarker = new GMarkerGoogle(this.cellpoint, GMarkerGoogleType.green);
+            //}
+            //else
+            //{
+            //    Font font = new Font("宋体", 13f, FontStyle.Bold);
+            //    Bitmap bitmap = CellmapManager.TextToBitmap(result.lac + "-" + result.cell, font, Rectangle.Empty, Color.Blue, Color.Red);
+            //    this.currentMarker = new GMarkerGoogle(this.cellpoint, bitmap);
+            //}
+            this.objects.Markers.Add(this.currentMarker);
+
+            this.currentMarker.ToolTipText = result.whichApi;
+            this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            this.currentMarker.ToolTip.Fill = new SolidBrush(Color.Red);
+            //设置地图中心为cellpoint
+            this.MainMap.Position = this.cellpoint;
+            //item为一个圆圈，用来表示基站范围
+            if (0 != result.distance )
+            {
+                GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal(result.distance)) / 2);
+                this.polygons.Markers.Add(item);
+            }
+            
+            this.polygonPoints.Add(this.cellpoint);
+
+        }
+
+          void PringResult(LBS2GPS.CellServiceEntity result)
+          {
+              //string sResult = result.whichApi + "\n" + "" 
+ 
+          }
+
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.textBox3.BringToFront();
@@ -1080,6 +1123,14 @@
                 lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
                 cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
             }
+            httpget_lbsMGCaller mc = new httpget_lbsMGCaller(LBS2GPS.httpget_lbsMG);
+
+            IAsyncResult result = mc.BeginInvoke(lac, cellid, null,null);
+            LBS2GPS.CellServiceEntity sResultMg = mc.EndInvoke(result);//用于接收返回值 
+            PringResult(sResultMg);
+            PointOnTheMap(sResultMg); 
+
+ 
 
         }
 
@@ -1286,24 +1337,25 @@
             this.polygon = new GMapPolygon(this.polygonPoints, "polygon test");
             this.polygons.Polygons.Add(this.polygon);
             this.MainMap.OnPositionChanged += new PositionChanged(this.MainMap_OnCurrentPositionChanged);
-            this.backgroundWorker12.RunWorkerAsync();
+            //删掉版本检测
+            //this.backgroundWorker12.RunWorkerAsync();
         }
 
         private void gPS批量查询Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.loginstatus == "true")
-            {
+            //if (this.loginstatus == "true")
+            //{
                 this.textBox3.BringToFront();
                 this.MainMap.BringToFront();
                 this.f4 = new Form4(this);
                 this.f4.Owner = this;
                 this.f4.Show();
                 this.f4.BringToFront();
-            }
-            else
-            {
-                MessageBox.Show("请登录后继续使用！", "提示");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("请登录后继续使用！", "提示");
+            //}
         }
 
         private void gps批量查询ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1363,7 +1415,6 @@
             this.图形ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.文字ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.使用帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清除本地数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.检查更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.官方网站ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1470,26 +1521,27 @@
             this.登陆ToolStripMenuItem.Name = "登陆ToolStripMenuItem";
             this.登陆ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
             this.登陆ToolStripMenuItem.Text = "注册用户专区";
+            this.登陆ToolStripMenuItem.Visible = false;
             this.登陆ToolStripMenuItem.Click += new System.EventHandler(this.登陆ToolStripMenuItem_Click);
             // 
             // 用户登陆ToolStripMenuItem
             // 
             this.用户登陆ToolStripMenuItem.Name = "用户登陆ToolStripMenuItem";
-            this.用户登陆ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.用户登陆ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.用户登陆ToolStripMenuItem.Text = "用户登陆";
             this.用户登陆ToolStripMenuItem.Click += new System.EventHandler(this.用户登陆ToolStripMenuItem_Click);
             // 
             // 修改密码ToolStripMenuItem
             // 
             this.修改密码ToolStripMenuItem.Name = "修改密码ToolStripMenuItem";
-            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.修改密码ToolStripMenuItem.Text = "密码修改";
             this.修改密码ToolStripMenuItem.Click += new System.EventHandler(this.修改密码ToolStripMenuItem_Click);
             // 
             // 账号查询ToolStripMenuItem
             // 
             this.账号查询ToolStripMenuItem.Name = "账号查询ToolStripMenuItem";
-            this.账号查询ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.账号查询ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.账号查询ToolStripMenuItem.Text = "账号查询";
             this.账号查询ToolStripMenuItem.Click += new System.EventHandler(this.账号查询ToolStripMenuItem_Click);
             // 
@@ -1676,20 +1728,12 @@
             // 帮助ToolStripMenuItem
             // 
             this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.使用帮助ToolStripMenuItem,
             this.清除本地数据库ToolStripMenuItem,
             this.检查更新ToolStripMenuItem,
             this.官方网站ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
             this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.帮助ToolStripMenuItem.Text = "帮助";
-            // 
-            // 使用帮助ToolStripMenuItem
-            // 
-            this.使用帮助ToolStripMenuItem.Name = "使用帮助ToolStripMenuItem";
-            this.使用帮助ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.使用帮助ToolStripMenuItem.Text = "使用说明";
-            this.使用帮助ToolStripMenuItem.Click += new System.EventHandler(this.使用帮助ToolStripMenuItem_Click);
             // 
             // 清除本地数据库ToolStripMenuItem
             // 
@@ -2235,7 +2279,7 @@
             // 
             this.webBrowser1.Location = new System.Drawing.Point(0, 1);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(114, 66);
+            this.webBrowser1.Size = new System.Drawing.Size(170, 117);
             this.webBrowser1.TabIndex = 17;
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.WebBrowser_NewWindow);
             // 
@@ -2493,19 +2537,19 @@
 
         private void TrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.loginstatus == "true")
-            {
+            //if (this.loginstatus == "true")
+            //{
                 this.textBox3.BringToFront();
                 this.MainMap.BringToFront();
                 this.f5 = new Form5(this);
                 this.f5.Owner = this;
                 this.f5.Show();
                 this.f5.BringToFront();
-            }
-            else
-            {
-                MessageBox.Show("请登录后继续使用！", "提示");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("请登录后继续使用！", "提示");
+            //}
         }
 
         private void WebBrowser_NewWindow(object sender, CancelEventArgs e)
@@ -2526,8 +2570,8 @@
 
         private void 打开10进制文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.loginstatus == "true")
-            {
+            //if (this.loginstatus == "true")
+            //{
                 this.textBox3.BringToFront();
                 this.MainMap.BringToFront();
                 string text = "使用说明：\r\n1、把需要查询的基站按照data文件夹下面cellinput.txt文件的格式生成，路径不变；\r\n2、cellinput.txt不能有空行；\r\n3、celloutput.txt是结果输出文件，每次用完可以删除。\r\n";
@@ -2536,11 +2580,11 @@
                     this.backgroundWorker1.RunWorkerAsync();
                     this.textBox3.Text = "批量查询开始，请稍后......\r\n";
                 }
-            }
-            else
-            {
-                MessageBox.Show("请登录后继续使用！", "提示");
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("请登录后继续使用！", "提示");
+            //}
         }
 
         private void 登陆ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2569,8 +2613,8 @@
 
         private void 官方网站ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string text = "技术支持 Email：cellmap@163.com";
-            MessageBox.Show(text, "CellMap For Pc");
+            string text = "技术支持 Email：1207@mapgoo.net";
+            MessageBox.Show(text, "麦谷专用基站查询工具");
         }
 
         private void 检查更新ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2580,7 +2624,9 @@
 
         private void 检查更新ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            this.backgroundWorker12.RunWorkerAsync();
+            //this.backgroundWorker12.RunWorkerAsync();
+
+            MessageBox.Show("当前使用的为最新版", "麦谷专用基站查询工具");
         }
 
         private void 进制文件ToolStripMenuItem_Click(object sender, EventArgs e)
