@@ -1114,8 +1114,18 @@
           }
           void PringResult( LBS2GPS.CellServiceEntity result)
           {
-              string sResult = result.whichApi + "\r\n" + result.lat.ToString() + "," + result.lng.ToString() + "\r\n";
-              SetText(sResult); 
+              string sResult = string.Empty;
+              if( result.address  == string.Empty)
+              {
+                    sResult = "----" + result.whichApi + "----" + "\r\n" + result.lat.ToString() + "," + result.lng.ToString() + "\r\n"  + "无地址信息\r\n";
+                  SetText(sResult); 
+              }
+              else
+              {
+                  sResult = "----" + result.whichApi + "----" + "\r\n" + result.lat.ToString() + "," + result.lng.ToString() + "\r\n" + result.address + "\r\n";
+                  SetText(sResult); 
+              }
+              
  
           }
 
@@ -1533,6 +1543,8 @@
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -1584,8 +1596,6 @@
             this.backgroundWorker12 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker13 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker14 = new System.ComponentModel.BackgroundWorker();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -1957,6 +1967,23 @@
             this.textBox3.Size = new System.Drawing.Size(334, 118);
             this.textBox3.TabIndex = 8;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(11, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "麦谷基站报文";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(94, 15);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(109, 21);
+            this.textBox5.TabIndex = 30;
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(217, 14);
@@ -2261,7 +2288,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(100, 21);
             this.textBox9.TabIndex = 27;
-            this.textBox9.Text = "4713";
+            this.textBox9.Text = "4043";
             this.textBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox9_KeyPress);
             // 
             // textBox8
@@ -2270,7 +2297,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(100, 21);
             this.textBox8.TabIndex = 26;
-            this.textBox8.Text = "9346";
+            this.textBox8.Text = "9766";
             this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
             // 
             // radioButton2
@@ -2468,23 +2495,6 @@
             this.backgroundWorker14.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker14_DoWork);
             this.backgroundWorker14.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker14_ProgressChanged);
             this.backgroundWorker14.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker14_RunWorkerCompleted);
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(94, 15);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(109, 21);
-            this.textBox5.TabIndex = 30;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(11, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
-            this.label2.TabIndex = 30;
-            this.label2.Text = "麦谷基站报文";
             // 
             // Form1
             // 
