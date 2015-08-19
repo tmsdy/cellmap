@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6917A97B-50A9-488C-803E-BA0F8CF163F3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <AssemblyName>cellmap</AssemblyName>
+    <AssemblyName>MapgooLbsTool</AssemblyName>
     <OutputType>WinExe</OutputType>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>www.ico.la_b9a121ba223da59c98a03a3fa9b8402d_128X128.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -110,6 +113,7 @@
   <ItemGroup>
     <Content Include="Aspose.Cells.dll" />
     <Content Include="readme.txt" />
+    <Content Include="www.ico.la_b9a121ba223da59c98a03a3fa9b8402d_128X128.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -900,6 +900,7 @@
 
         private void backgroundWorker8_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            //                      原始GPS　　　　　　　QQ经纬度
             //GPSSPG: "9766,3682,22.7351,  113.802,  22.7322201319046,113.807093175813,广东省深圳市宝安区沙井街道新沙路38号,758,"
             //CELLMAP:"9766,3682,22.606658,113.851435,22.6036773226,  113.856412185454,中国广东省深圳市宝安区恒南一路 邮政编码: 518126,758"
             string str = e.Result.ToString();
@@ -940,7 +941,7 @@
                     {
                         str6 = "(" + (Convert.ToInt32(str3) % 0x10000) + ")";
                     }
-                    this.textBox3.Text = "基站信息：\r\n10进制基站：" + str2 + " - " + str3 + str6 + "\r\n16进制基站：" + str4 + " - " + str5 + "\r\n经纬度：" + strArray[2] + "," + strArray[3] + "\r\n纠偏后经纬度：" + strArray[4] + "," + strArray[5] + "\r\n地址：" + strArray[6] + "\r\n范围：" + strArray[7];
+                    //this.textBox3.Text = "基站信息：\r\n10进制基站：" + str2 + " - " + str3 + str6 + "\r\n16进制基站：" + str4 + " - " + str5 + "\r\n经纬度：" + strArray[2] + "," + strArray[3] + "\r\n纠偏后经纬度：" + strArray[4] + "," + strArray[5] + "\r\n地址：" + strArray[6] + "\r\n范围：" + strArray[7];
                     this.cellpoint = new PointLatLng(Convert.ToDouble(strArray[4]), Convert.ToDouble(strArray[5]));
                     if (CellmapManager.GetStringIni("1", "MarkerType") == "1")
                     {
@@ -954,13 +955,16 @@
                     }
                     GMapMarker item = new GMapMarkerCircle(this.cellpoint, Convert.ToInt32(Convert.ToDecimal(strArray[7])) / 2);
                     this.objects.Markers.Add(this.currentMarker);
-                    string str7 = "10进制：" + str2 + " - " + str3 + str6 + "\r\n16进制：" + str4 + " - " + str5 + "\r\nGPS：" + strArray[2] + "," + strArray[3] + "\r\n" + strArray[6];
-                    this.currentMarker.ToolTipText = str7;
+                    //string str7 = "10进制：" + str2 + " - " + str3 + str6 + "\r\n16进制：" + str4 + " - " + str5 + "\r\nGPS：" + strArray[2] + "," + strArray[3] + "\r\n" + strArray[6];
+                    this.currentMarker.ToolTipText = "CellMap";
                     this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                     this.currentMarker.ToolTip.Fill = new SolidBrush(Color.Red);
                     this.MainMap.Position = this.cellpoint;
-                    this.polygons.Markers.Add(item);
+                    //this.polygons.Markers.Add(item);
                     this.polygonPoints.Add(this.cellpoint);
+
+                    string sResult = "----" + "CellMap" + "----" + "\r\n" + strArray[2] + "," + strArray[3] + "\r\n" + strArray[6] + "\r\n";
+                    SetText(sResult); 
                 }
                 catch (Exception)
                 {
@@ -1154,7 +1158,7 @@
                   lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
                   cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
               }
-              textBox3.Text = ("********************" + lac  + "," + cellid+ "********************\r\n");
+              //textBox3.Text = ("********************" + lac  + "," + cellid+ "********************\r\n");
               /********************************Mapbar查询**************************************/
               httpget_lbsMapbarCaller MapbarCaller = new httpget_lbsMapbarCaller(LBS2GPS.httpget_lbsMapbar);
               IAsyncResult resultMapbar = MapbarCaller.BeginInvoke(lac, cellid, null, null);
@@ -1183,16 +1187,16 @@
               }
 
               /********************************CellMap查询**************************************/
-              httpget_lbsCellMapCaller CellMapCaller = new httpget_lbsCellMapCaller(LBS2GPS.httpget_lbsCellMap);
-              IAsyncResult resultCellMap = CellMapCaller.BeginInvoke(lac, cellid, null, null);
-              LBS2GPS.CellServiceEntity sResultCellMap = CellMapCaller.EndInvoke(resultCellMap);//用于接收返回值 
+              //httpget_lbsCellMapCaller CellMapCaller = new httpget_lbsCellMapCaller(LBS2GPS.httpget_lbsCellMap);
+              //IAsyncResult resultCellMap = CellMapCaller.BeginInvoke(lac, cellid, null, null);
+              //LBS2GPS.CellServiceEntity sResultCellMap = CellMapCaller.EndInvoke(resultCellMap);//用于接收返回值 
 
 
-              if (sResultCellMap != null)
-              {
-                  PringResult(sResultCellMap);
-                  PointOnTheMap(sResultCellMap);
-              }
+              //if (sResultCellMap != null)
+              //{
+              //    PringResult(sResultCellMap);
+              //    PointOnTheMap(sResultCellMap);
+              //}
 
               /********************************CellID查询**************************************/
               httpget_lbsCellIdCaller CellIdCaller = new httpget_lbsCellIdCaller(LBS2GPS.httpget_lbsCellId);
@@ -1213,11 +1217,23 @@
             this.MainMap.BringToFront();
             this.textBox3.Text = "基站查询中，请稍后......";
             //屏蔽掉原来的cellmap方法
-            //this.backgroundWorker8.RunWorkerAsync();
+            this.backgroundWorker8.RunWorkerAsync();
             this.button2.Enabled = false;
 
             //this.textBox3.Text = string.Empty;
-
+            string lac = "";
+            string cellid = "";
+            if (this.radioButton1.Checked)
+            {
+                lac = this.textBox8.Text;
+                cellid = this.textBox9.Text;
+            }
+            if (this.radioButton2.Checked)
+            {
+                lac = (Convert.ToInt32(this.textBox8.Text, 0x10)).ToString();
+                cellid = (Convert.ToInt32(this.textBox9.Text, 0x10)).ToString();
+            }
+            textBox3.Text = ("********************" + lac + "," + cellid + "********************\r\n");
             System.Threading.Thread thread = new Thread(new ThreadStart(queryall));
             thread.Start();
 
@@ -1503,6 +1519,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.用户登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2501,6 +2518,7 @@
             this.ClientSize = new System.Drawing.Size(975, 703);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
