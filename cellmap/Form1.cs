@@ -1402,10 +1402,10 @@
 
         private void button9_Click(object sender, EventArgs e)
         {
-            if(textBox12.Text != string.Empty)
-            {
-                string sLngLat = textBox12.Text.Trim();
+             string sLngLat = textBox12.Text.Trim();
 
+            if((2 < sLngLat.Length)&&(-1 !=sLngLat.IndexOf(',')))
+            {
                 textBox2.Text = sLngLat.Split(',')[0];
                 textBox1.Text = sLngLat.Split(',')[1];
             }
