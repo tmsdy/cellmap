@@ -72,9 +72,7 @@
         private Label label1;
         private Label label11;
         private Label label3;
-        private Label label4;
         private Label label5;
-        private Label label6;
         private Label label7;
         private Label label8;
         private Label label9;
@@ -122,7 +120,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         public GMapOverlay top;
         private ToolStripMenuItem TrackToolStripMenuItem;
-        private string version = "1.0.0";
+        private string version = "1.0.1";
         public WebBrowser webBrowser1;
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 打开10进制文件ToolStripMenuItem;
@@ -152,6 +150,7 @@
         private ToolStripMenuItem 用户登陆ToolStripMenuItem;
         private TextBox textBox5;
         private Label label2;
+        private TextBox textBox12;
         private ToolStripMenuItem 账号查询ToolStripMenuItem;
 
         public Form1()
@@ -1004,11 +1003,11 @@
             if (str != "null")
             {
                 string[] strArray = str.Split(new char[] { ',' });
-                this.textBox3.Text = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
+                this.textBox3.Text = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
                 this.cellpoint = new PointLatLng(Convert.ToDouble(strArray[1]), Convert.ToDouble(strArray[0]));
                 this.currentMarker = new GMarkerGoogle(this.cellpoint, GMarkerGoogleType.green);
                 this.objects.Markers.Add(this.currentMarker);
-                string str2 = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
+                string str2 = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
                 this.currentMarker.ToolTipText = str2;
                 this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 this.MainMap.Position = this.cellpoint;
@@ -1403,6 +1402,14 @@
 
         private void button9_Click(object sender, EventArgs e)
         {
+            if(textBox12.Text != string.Empty)
+            {
+                string sLngLat = textBox12.Text.Trim();
+
+                textBox2.Text = sLngLat.Split(',')[0];
+                textBox1.Text = sLngLat.Split(',')[1];
+            }
+             
             this.textBox3.BringToFront();
             this.MainMap.BringToFront();
             this.textBox3.Text = "定位中，请稍后......";
@@ -1575,8 +1582,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button17 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -1613,6 +1618,7 @@
             this.backgroundWorker12 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker13 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker14 = new System.ComponentModel.BackgroundWorker();
+            this.textBox12 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -1969,19 +1975,19 @@
             this.splitContainer4.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer4.Panel2.Controls.Add(this.groupBox3);
             this.splitContainer4.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer4.Size = new System.Drawing.Size(334, 674);
-            this.splitContainer4.SplitterDistance = 118;
+            this.splitContainer4.Size = new System.Drawing.Size(334, 774);
+            this.splitContainer4.SplitterDistance = 200;
             this.splitContainer4.TabIndex = 30;
             // 
             // textBox3
             // 
             this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox3.Font = new System.Drawing.Font("宋体", 11F);
             this.textBox3.Location = new System.Drawing.Point(0, 0);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(334, 118);
+            this.textBox3.Size = new System.Drawing.Size(334, 200);
             this.textBox3.TabIndex = 8;
             // 
             // label2
@@ -2109,10 +2115,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox12);
             this.groupBox2.Controls.Add(this.button17);
             this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.button9);
             this.groupBox2.Location = new System.Drawing.Point(16, 289);
@@ -2134,38 +2139,18 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(56, 26);
+            this.textBox2.Location = new System.Drawing.Point(19, 62);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 21);
+            this.textBox2.Size = new System.Drawing.Size(76, 21);
             this.textBox2.TabIndex = 15;
             this.textBox2.Text = "116.397494";
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(10, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "lng";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(10, 62);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 16);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "lat";
-            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(56, 62);
+            this.textBox1.Location = new System.Drawing.Point(101, 62);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 21);
+            this.textBox1.Size = new System.Drawing.Size(76, 21);
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = "39.9087";
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
@@ -2386,7 +2371,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer1.Size = new System.Drawing.Size(975, 678);
+            this.splitContainer1.Size = new System.Drawing.Size(975, 778);
             this.splitContainer1.SplitterDistance = 633;
             this.splitContainer1.TabIndex = 7;
             // 
@@ -2394,7 +2379,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 652);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 752);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(629, 22);
             this.statusStrip1.TabIndex = 18;
@@ -2426,7 +2411,7 @@
             this.MainMap.RoutesEnabled = true;
             this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
-            this.MainMap.Size = new System.Drawing.Size(629, 674);
+            this.MainMap.Size = new System.Drawing.Size(629, 774);
             this.MainMap.TabIndex = 3;
             this.MainMap.Zoom = 0D;
             // 
@@ -2513,9 +2498,17 @@
             this.backgroundWorker14.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker14_ProgressChanged);
             this.backgroundWorker14.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker14_RunWorkerCompleted);
             // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(21, 27);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(152, 21);
+            this.textBox12.TabIndex = 29;
+            this.textBox12.Text = "116.397494,39.9087";
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(975, 703);
+            this.ClientSize = new System.Drawing.Size(975, 803);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
