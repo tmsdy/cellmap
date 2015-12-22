@@ -120,7 +120,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         public GMapOverlay top;
         private ToolStripMenuItem TrackToolStripMenuItem;
-        private string version = "1.0.1";
+        private string version = "1.0.2";
         public WebBrowser webBrowser1;
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 打开10进制文件ToolStripMenuItem;
@@ -866,7 +866,7 @@
                 }
                 catch
                 {
-                    this.textBox3.Text = "网络故障，请稍后再试！\r\n" + str;
+                    this.textBox3.Text += "网络故障，请稍后再试！\r\n" + str;
                 }
             }
             else
@@ -972,7 +972,8 @@
             }
             else
             {
-                this.textBox3.Text = "结果：查询不到该数据 " + this.textBox8.Text + "-" + this.textBox9.Text + "\r\n原因：该数据未收录，或输入有误！\r\n";
+                string sResult = "----" + "CellMap" + "----" + "\r\n" + "结果：查询不到该数据 " + this.textBox8.Text + "-" + this.textBox9.Text + "\r\n";
+                SetText(sResult); 
             }
             this.button2.Enabled = true;
         }
@@ -983,13 +984,14 @@
             {
                 string text = this.textBox1.Text;
                 string str2 = this.textBox2.Text;
+                string[] strArrayBaidu = LBS2GPS.GetBaiduCoordEx(str2,text , 1,5);
                 string[] strArray = CellmapManager.FixGpsApi(Convert.ToDouble(text), Convert.ToDouble(str2)).Split(new char[] { ',' });
                 string str4 = "null";
                 if (str4 == "null")
                 {
                     str4 = CellmapManager.GetGps2AddressFromAMap(text, str2, "gps");
                 }
-                e.Result = strArray[0] + "," + strArray[1] + "," + str4;
+                e.Result = strArray[0] + "," + strArray[1] + "," + str4 + "," + strArrayBaidu[0] + "," + strArrayBaidu[1];
             }
             catch
             {
@@ -1003,11 +1005,11 @@
             if (str != "null")
             {
                 string[] strArray = str.Split(new char[] { ',' });
-                this.textBox3.Text = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
+                this.textBox3.Text = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n纠偏后baidu经纬度：" + strArray[3] + "，" + strArray[4] + "\r\n地址：" + strArray[2] + "\r\n";
                 this.cellpoint = new PointLatLng(Convert.ToDouble(strArray[1]), Convert.ToDouble(strArray[0]));
                 this.currentMarker = new GMarkerGoogle(this.cellpoint, GMarkerGoogleType.green);
                 this.objects.Markers.Add(this.currentMarker);
-                string str2 = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n地址：" + strArray[2] + "\r\n";
+                string str2 = "经纬度：" + this.textBox2.Text + "，" + this.textBox1.Text + "\r\n纠偏后QQ经纬度：" + strArray[0] + "，" + strArray[1] + "\r\n纠偏后baidu经纬度：" + strArray[3] + "，" + strArray[4] + "\r\n地址：" + strArray[2] + "\r\n";
                 this.currentMarker.ToolTipText = str2;
                 this.currentMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 this.MainMap.Position = this.cellpoint;
@@ -1345,7 +1347,7 @@
                 //sCellhex = sLacCell.Substring(4, 4);
                 lLac = Convert.ToInt64(sLacCell.Substring(0, 4), 16);
                 lCell = Convert.ToInt64(sLacCell.Substring(4, 4), 16);
-
+                radioButton1.Checked = true;
                 textBox8.Text = lLac.ToString();
                 textBox9.Text = lCell.ToString();
             }

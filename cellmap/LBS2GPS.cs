@@ -46,6 +46,28 @@ namespace cellmap
 
             public string reason { get; set; }
         }
+        public class BaiduResult
+        {
+            // Methods
+
+            // Properties
+            public decimal x { get; set; }
+            public decimal y { get; set; }
+        }
+
+ 
+
+        public class BaiduCoords
+        {
+            // Methods
+            //public BaiduCoords();
+
+            // Properties
+            public List<BaiduResult> result { get; set; }
+            public int status { get; set; }
+        }
+
+ 
 
         public class QQCoords
         {
@@ -60,6 +82,7 @@ namespace cellmap
 
 
 
+        public static string sBaiduKey = "9YzRvatNTu9f5DnjsBP3hV6g";
         public static string sQQkey = "D5CBZ-42MRW-GKERA-RZI4B-VX2W2-3DBOE";
         private delegate void SetTextHandler(string text);
 
@@ -80,7 +103,38 @@ namespace cellmap
             //}
         }
 
+        //http://api.map.baidu.com/geoconv/v1/?coords=114.21892734521,29.575429778924&from=1&to=5&ak=
+        public static string[] GetBaiduCoordEx(string lon, string lat, int from, int to)
+        {
+            string requestUriString = string.Format("http://api.map.baidu.com/geoconv/v1/?coords={0},{1}&ak={4}&from={2}&to={3}", new object[] { lon, lat, from.ToString(), to.ToString(), sBaiduKey });
+            string[] strArray = new string[2];
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUriString);
+                request.Timeout = 0x5dc;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                string str2 = string.Empty;
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    str2 = reader.ReadToEnd();
+                    reader.Close();
+                }
+                BaiduCoords coords = JsonConvert.DeserializeObject<BaiduCoords>(str2);
+                if (coords.status == 0)
+                {
+                    strArray[0] = coords.result[0].x.ToString();
+                    strArray[1] = coords.result[0].y.ToString();
+                }
+            }
+            catch
+            {
+                strArray[0] = lon;
+                strArray[1] = lat;
+            }
+            return strArray;
+        }
 
+ 
 
         public static string[] GetQQCoordEx(string lng, string lat, int from)
         {
