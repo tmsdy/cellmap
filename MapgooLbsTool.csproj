@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationIcon>www.ico.la_b9a121ba223da59c98a03a3fa9b8402d_128X128.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <EmbeddedResource Include="cellmap\Form1.resx">
@@ -118,4 +121,9 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="D:\我的文档\Visual Studio 2013\Projects\cellmap\protect.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
