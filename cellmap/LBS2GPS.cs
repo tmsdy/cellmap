@@ -234,7 +234,9 @@ namespace cellmap
                 else
                 {
                     //textBox6.Text = "查询失败";
-                    return null;
+                    entity.address = "";
+                    entity.whichApi = "MapGoo";
+                    return entity;
                 }
             }
         
@@ -287,8 +289,11 @@ namespace cellmap
                     //textBox7.Text = entity.lat + "," + entity.lng;
                 }
                 else
-                {
-                    return null;
+                { 
+
+                    entity.address = "";
+                    entity.whichApi = "CellId";
+                    return entity;
                 //    textBox7.Text = "查询失败";
                 }
             }
@@ -348,7 +353,11 @@ namespace cellmap
             else
             {
                 //textBox8.Text = "查询失败";
-                return null;
+               
+
+                entity.address = "";
+                entity.whichApi = "CellMap";
+                return entity;
             }
 
         }
@@ -405,7 +414,11 @@ namespace cellmap
             else
             {
                 //textBox9.Text = "查询失败";
-                return null;
+                CellServiceEntity entity = new CellServiceEntity();
+               
+                entity.address = "";
+                entity.whichApi = "Mapbar";
+                return entity;
             }
 
         }

@@ -120,7 +120,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         public GMapOverlay top;
         private ToolStripMenuItem TrackToolStripMenuItem;
-        private string version = "1.0.2";
+        private string version = "1.0.3";
         public WebBrowser webBrowser1;
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 打开10进制文件ToolStripMenuItem;
@@ -1120,6 +1120,14 @@
           void PringResult( LBS2GPS.CellServiceEntity result)
           {
               string sResult = string.Empty;
+              if ((result.lat == null )&&(result.lng == null))
+              {
+                  sResult = "----" + result.whichApi + "----" + "\r\n" + "结果：查询不到该数据 \r\n";
+                  SetText(sResult);
+                  return;
+              }
+
+
               if( result.address  == string.Empty)
               {
                     sResult = "----" + result.whichApi + "----" + "\r\n" + result.lat.ToString() + "," + result.lng.ToString() + "\r\n"  + "无地址信息\r\n";
@@ -1165,10 +1173,10 @@
               IAsyncResult resultMapbar = MapbarCaller.BeginInvoke(lac, cellid, null, null);
               LBS2GPS.CellServiceEntity sResultMapbar = MapbarCaller.EndInvoke(resultMapbar);//用于接收返回值 
 
-
               if (sResultMapbar != null)
               {
                   //textBox3.Text = string.Empty;
+
                   PringResult(sResultMapbar);
                   PointOnTheMap(sResultMapbar);
               }
@@ -1582,6 +1590,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
             this.button17 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -1620,7 +1629,6 @@
             this.backgroundWorker12 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker13 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker14 = new System.ComponentModel.BackgroundWorker();
-            this.textBox12 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -2129,6 +2137,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "经纬度查询";
             // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(21, 27);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(152, 21);
+            this.textBox12.TabIndex = 29;
+            this.textBox12.Text = "116.397494,39.9087";
+            // 
             // button17
             // 
             this.button17.Location = new System.Drawing.Point(189, 60);
@@ -2292,7 +2308,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(100, 21);
             this.textBox9.TabIndex = 27;
-            this.textBox9.Text = "4043";
+            this.textBox9.Text = "20462";
             this.textBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox9_KeyPress);
             // 
             // textBox8
@@ -2301,7 +2317,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(100, 21);
             this.textBox8.TabIndex = 26;
-            this.textBox8.Text = "9766";
+            this.textBox8.Text = "20849";
             this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
             // 
             // radioButton2
@@ -2499,14 +2515,6 @@
             this.backgroundWorker14.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker14_DoWork);
             this.backgroundWorker14.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker14_ProgressChanged);
             this.backgroundWorker14.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker14_RunWorkerCompleted);
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(21, 27);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(152, 21);
-            this.textBox12.TabIndex = 29;
-            this.textBox12.Text = "116.397494,39.9087";
             // 
             // Form1
             // 
